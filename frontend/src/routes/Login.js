@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 let inputStyle = 'p-3 border-0 border-b-2 border-b-gray-300'
+
 const Login = () => {
   return (
     <div className='flex items-center justify-center h-screen bg-lightOrange flex-col'>
