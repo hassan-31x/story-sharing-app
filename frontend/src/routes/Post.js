@@ -9,7 +9,7 @@ const Post = () => {
   const [post, setPost] = useState({})
 
   const location = useLocation()
-  const postId = location.pathname.split('/')[2]
+  const postId = location.pathname.split('/')[2] // or use post.id from data received
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Post = () => {
           <div className="edit">
             {/* Use images for both */}
             {/* State is like Props but for links */}
-            <Link to={`/write?edit=2`} state={post}><p>Edit</p></Link>
+            <Link to={`/write?edit=${postId}`} state={post}><p>Edit</p></Link>
             <p onClick={handleDelete}>Delete</p>
           </div>}
         </div>
@@ -66,7 +66,7 @@ const Post = () => {
         </div>
       </div>
       <div className="flex-[2]">
-        <Menu cat={post.cat} />
+        <Menu cat={post.cat} id={post.id} />
       </div>
     </div>
   )

@@ -1,9 +1,12 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/authContext.js'
 
 // let itemStyle = 
 const Navbar = () => {
+
+  const location = useLocation()
+  const write = location.pathname
 
   const {currentUser, logout} = useContext(AuthContext)
   
@@ -22,7 +25,7 @@ const Navbar = () => {
           <span className='cursor-pointer font-semibold opacity-80 text-lg' onClick={logout}>Logout</span> :
           <Link className='cursor-pointer font-semibold opacity-80 text-lg' to='/login'>Login</Link>}
           <span className='cursor-pointer font-semibold opacity-80 text-lg'>
-            <Link to='/write' className='underline text-darkOrange hover:bg-lightOrange py-2 px-3 rounded-md hover:text-black underline-offset-2'>Write</Link>
+            <Link to='/write' className={`underline text-darkOrange hover:bg-lightOrange py-2 px-3 rounded-md hover:text-black underline-offset-2 ${write === '/write' ? 'hidden' : 'block'}`}>Write</Link>
           </span>
         </div>
       </div>

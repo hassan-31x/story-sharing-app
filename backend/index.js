@@ -14,13 +14,12 @@ app.use(cookieParser())
 // Initialise Multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../frontend/public/uploads')
+        cb(null, '../frontend/src/uploads')
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + file.originalname)
     }
 })
-
 const upload = multer({ storage: storage }) // or ({storage}) cz the are of same name
 app.post('/api/upload', upload.single('file'), function (req, res) {
     const file = req.file
