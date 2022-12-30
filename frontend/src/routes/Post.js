@@ -37,12 +37,13 @@ const Post = () => {
     }
   }
 
+  console.log(post.content)
   return (
     <div className='flex gap-[50px] mt-10'>
       <div className="flex-[5] flex flex-col gap-4">
 
-        <div className="content">
-          <img src={post?.img} alt="" className='w-full h-96 object-cover'/>
+        <div className="content border-2 border-gray-600">
+          <img src={post.img && require('../uploads/' + post.img)} alt="img" className='w-full h-96 object-contain' />
         </div>
 
         <div className="flex items-center gap-4">
@@ -62,7 +63,7 @@ const Post = () => {
 
         <div className='mt-4 flex flex-col gap-8'>
           <h2 className='text-4xl font-bold text-secondaryBlack'>{post?.title}</h2>
-          <p className='text-secondaryBlack text-justify leading-7'>{post?.content}</p>
+          <div className='text-secondaryBlack text-justify leading-7'>{post?.content}</div>
         </div>
       </div>
       <div className="flex-[2]">

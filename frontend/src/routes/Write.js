@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import moment from 'moment'
 
 const Write = () => {
@@ -13,6 +13,8 @@ const Write = () => {
   const [description, setDescription] = useState(state?.content ||'')
   const [img, setImg] = useState(null)
   const [cat, setCat] = useState(state?.cat || '')
+
+  const navigate = useNavigate()
 
   const upload = async () => {
     try {
@@ -37,15 +39,19 @@ const Write = () => {
   // }
   const handleSubmit = async e => {
     e.preventDefault()
-    const url = await upload()
-
+    
     try {
-      state ? await axios.put(`/posts/${state.id}`, {
-        title, content: description, cat, img: img ? url : ''
-      }) :
-      await axios.post(`/posts/`, {
+      if (state) {
+        await axios.put(`/posts/${state.id}`, {
+          // title, content: description, cat, img: 'url'
+          title, content: description, cat
+      })}
+      else {
+        const url = await upload()
+        await axios.post(`/posts/`, {
         title, content: description, cat, img: img ? url : '', date: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-      })
+      })}
+      navigate(`/post/${state.id}`)
     } catch (error) {
       console.log(error)
     }
@@ -65,9 +71,9 @@ const Write = () => {
           <h3 className='text-xl font-bold opacity-90 mb-2'>Publish</h3>
           <span><b>Status: </b>Draft</span><br />
           <span><b>Visibility: </b>Public</span><br />
-          <label className='underline cursor-pointer'>
+          {!state && <label className='underline cursor-pointer'>
             <input type="file" className='hidden' onChange={e => setImg(e.target.files[0])} />
-          Upload Image</label>
+          Upload Image</label>}
           <div className="flex justify-between">
             <button className='py-1 px-2 border rounded-md border-darkOrange text-darkOrange'>Save as draft</button>
             <button className='py-1 px-2 border rounded-md border-darkOrange bg-darkOrange text-white' onClick={handleSubmit}>Publish</button>

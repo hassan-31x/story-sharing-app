@@ -26,7 +26,7 @@ const Menu = ({cat, id}) => {
           if (post.id != id) {
             return (
               <div key={post.id} className='flex flex-col gap-2'>
-                  <img src={post.img} alt="" className='w-full h-48 object-cover'/>
+                  <img src={post.img && require('../uploads/' + post.img)} alt="img" className='w-full h-48 object-cover' />
                   <h3 className='text-xl font-bold text-secondaryBlack opacity-[95%]'>{post.title}</h3>
                   {/* without '/' at start will add that to exiting URL instead of absolute URL from start */}
                   <Link to={`/post/${post.id}`}> 
